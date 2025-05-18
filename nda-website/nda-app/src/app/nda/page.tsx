@@ -78,25 +78,23 @@ function NDAContent() {
   };
 
   return (
-    <div className="w-full mx-auto">
+    <div className="max-w-4xl mx-auto">
       <div className="flex flex-col md:flex-row w-full">
         {/* Left side - Logo */}
-        <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-8 md:p-12 md:fixed md:left-0 md:top-0 md:bottom-0 md:h-screen bg-white">
-          <div className="flex justify-center items-center h-full">
-            <Image
-              src="/logo.png"
-              alt="Company Logo"
-              width={320}
-              height={103}
-              className="h-auto"
-              priority
-            />
-          </div>
+        <div className="w-full md:w-1/2 p-4 flex justify-start">
+          <Image
+            src="/logo.png"
+            alt="Company Logo"
+            width={280}
+            height={90}
+            className="h-auto"
+            priority
+          />
         </div>
 
         {/* Right side - Form */}
-        <div className="w-full md:w-1/2 md:ml-auto p-8 flex flex-col items-center justify-center">
-          <div className="max-w-md w-full">
+        <div className="w-full md:w-1/2 p-4">
+          <div className="max-w-md w-full mx-auto">
             <h1 className="text-3xl font-bold text-primary mb-2 text-center">Confidential Document Portal</h1>
             <p className="text-black mb-6 text-center">
               Please sign the Non-Disclosure Agreement to access our confidential documents.

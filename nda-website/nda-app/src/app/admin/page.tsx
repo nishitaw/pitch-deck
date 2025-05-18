@@ -9,7 +9,7 @@ import LinkHelper from '@/components/LinkHelper';
 function AdminContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const email = searchParams.get('email');
+  const email = searchParams?.get('email') || '';
 
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);

@@ -8,7 +8,7 @@ import Button from '@/components/Button';
 function DocumentsContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const email = searchParams.get('email');
+  const email = searchParams?.get('email') || '';
 
   const [hasSignedNDA, setHasSignedNDA] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(true);

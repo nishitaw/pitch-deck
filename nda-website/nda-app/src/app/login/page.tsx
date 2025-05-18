@@ -8,7 +8,7 @@ import Button from '@/components/Button';
 function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const email = searchParams.get('email') || '';
+  const email = searchParams?.get('email') || '';
 
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);

@@ -9,7 +9,7 @@ import Button from '@/components/Button';
 function NDAContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const email = searchParams.get('email') || '';
+  const email = searchParams?.get('email') || '';
 
   const [name, setName] = useState('');
   const [company, setCompany] = useState('');

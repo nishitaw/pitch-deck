@@ -89,7 +89,7 @@ function NDAContent() {
       <div className="flex flex-col md:flex-row gap-8 items-center justify-center w-full">
         <div className="w-full md:w-1/2 flex justify-center">
           <Image
-            src="/DCC - WHITE,BLUE, ORANGE (TRANSPARENT).png"
+            src="/logo.png"
             alt="Company Logo"
             width={400}
             height={300}

@@ -9,7 +9,7 @@ const Header: React.FC = () => {
         <Link href="/" className="flex items-center relative group">
           <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
           <Image
-            src="/DCC - WHITE,BLUE, ORANGE (TRANSPARENT).png"
+            src="/logo.png"
             alt="Company Logo"
             width={150}
             height={50}

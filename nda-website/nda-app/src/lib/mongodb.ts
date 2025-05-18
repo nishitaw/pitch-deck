@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/nda-website';
+// Default to the connection string we know works
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://dccdev123:ljIAiR09FxaZJrvv@cluster0.je4ebjs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+
+// Log connection attempt for debugging
+console.log('Attempting to connect to MongoDB...');
 
 if (!MONGODB_URI) {
   throw new Error(
@@ -44,7 +48,11 @@ async function dbConnect() {
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+      console.log('MongoDB connected successfully');
       return mongoose;
+    }).catch(err => {
+      console.error('MongoDB connection error:', err);
+      throw err;
     });
   }
   cached.conn = await cached.promise;

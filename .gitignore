@@ -24,6 +24,10 @@ build
 .DS_Store
 *.pem
 
+# root package files (not part of the project)
+/package.json
+/package-lock.json
+
 # debug
 npm-debug.log*
 yarn-debug.log*

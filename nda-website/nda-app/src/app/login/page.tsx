@@ -88,9 +88,9 @@ function LoginContent() {
           <Image
             src="/logo.png"
             alt="Company Logo"
-            width={400}
-            height={300}
-            className="w-full max-w-md h-auto"
+            width={200}
+            height={64}
+            className="w-full max-w-xs h-auto content-image"
             priority
           />
         </div>

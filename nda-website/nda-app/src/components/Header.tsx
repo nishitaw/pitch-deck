@@ -6,8 +6,20 @@ const Header: React.FC = () => {
   return (
     <header className="backdrop-blur-md bg-white/80 py-4 sticky top-0 z-50 shadow-md">
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <nav className="flex-1">
-          <ul className="flex space-x-6">
+        <Link href="/" className="flex items-center relative group mr-8">
+          <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+          <Image
+            src="/logo.png"
+            alt="Company Logo"
+            width={240}
+            height={80}
+            className="h-16 w-auto relative"
+            priority
+          />
+        </Link>
+
+        <nav className="flex-1 flex justify-end">
+          <ul className="flex space-x-8">
             <li>
               <Link
                 href="/"
@@ -26,18 +38,6 @@ const Header: React.FC = () => {
             </li>
           </ul>
         </nav>
-
-        <Link href="/" className="flex items-center relative group ml-auto mr-4">
-          <div className="absolute -inset-3 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-          <Image
-            src="/logo.png"
-            alt="Company Logo"
-            width={200}
-            height={67}
-            className="h-14 w-auto relative"
-            priority
-          />
-        </Link>
       </div>
     </header>
   );

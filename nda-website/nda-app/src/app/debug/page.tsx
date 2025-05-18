@@ -178,8 +178,13 @@ function DebugPageContent() {
 // Use dynamic import with SSR disabled to prevent prerendering issues
 const DebugPage = dynamic(() => Promise.resolve(DebugPageContent), {
   ssr: false,
+  loading: () => <div className="p-8 text-center">Loading debug tools...</div>
 });
 
 export default function DebugPageWrapper() {
-  return <DebugPage />;
+  return (
+    <div className="min-h-screen">
+      <DebugPage />
+    </div>
+  );
 }

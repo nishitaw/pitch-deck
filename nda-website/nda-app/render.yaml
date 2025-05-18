@@ -2,8 +2,17 @@ services:
   - type: web
     name: nda-app
     env: node
+    plan: free
     buildCommand: npm install && npm run build
     startCommand: npm run render-start
+    # Add health check endpoint
+    healthCheckPath: /api/health
+    # Increase startup timeout
+    initialDeployHook: sleep 10
+    # Add auto-scaling configuration
+    autoscaling:
+      min: 1
+      max: 1
     envVars:
       - key: NODE_ENV
         value: production
@@ -16,3 +25,6 @@ services:
           type: web
           name: nda-app
           property: url
+      # Add explicit port configuration
+      - key: PORT
+        value: 3000

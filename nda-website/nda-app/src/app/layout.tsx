@@ -26,8 +26,8 @@ export default function RootLayout({
         className="antialiased flex flex-col min-h-screen overflow-x-hidden"
         suppressHydrationWarning={true}
       >
-        {/* Decorative elements disabled for stability */}
-        {/* <DecorativeElements count={4} /> */}
+        {/* Decorative elements */}
+        <DecorativeElements count={6} />
 
         <Header />
         <main className="flex-grow flex items-center justify-center container mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10 w-full max-w-full">
@@ -36,15 +36,6 @@ export default function RootLayout({
           </div>
         </main>
         <Footer />
-
-        {/* Add script to ensure styles are applied */}
-        <Script id="apply-styles" strategy="afterInteractive">
-          {`
-            document.body.style.display = 'flex';
-            document.body.style.flexDirection = 'column';
-            document.body.style.minHeight = '100vh';
-          `}
-        </Script>
       </body>
     </html>
   );

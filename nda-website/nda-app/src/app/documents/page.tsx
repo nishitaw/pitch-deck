@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import DocumentList from '@/components/DocumentList';
 import Button from '@/components/Button';
+import { safeNavigate } from '@/utils/navigation';
 
 function DocumentsContent() {
   const searchParams = useSearchParams();
@@ -18,24 +19,31 @@ function DocumentsContent() {
 
   useEffect(() => {
     const checkNDAStatus = async () => {
+      console.log('Documents: Page loaded with email:', email);
+
       if (!email) {
+        console.log('Documents: No email provided, skipping checks');
         setLoading(false);
         return;
       }
 
       try {
+        console.log('Documents: Checking if user exists');
         // First check if user exists
         const userCheckResponse = await fetch(`/api/auth/check-user?email=${encodeURIComponent(email)}`);
         const userCheckData = await userCheckResponse.json();
+        console.log('Documents: User check response:', userCheckData);
 
         if (!userCheckResponse.ok) {
           throw new Error(userCheckData.error || 'Failed to check user status');
         }
 
         if (userCheckData.exists) {
+          console.log('Documents: User exists, checking NDA status');
           // User exists, check if they've signed the NDA
           const ndaResponse = await fetch(`/api/nda/check?email=${encodeURIComponent(email)}`);
           const ndaData = await ndaResponse.json();
+          console.log('Documents: NDA check response:', ndaData);
 
           if (!ndaResponse.ok) {
             throw new Error(ndaData.error || 'Failed to check NDA status');
@@ -44,6 +52,7 @@ function DocumentsContent() {
           setHasSignedNDA(ndaData.hasSignedNDA);
           if (ndaData.user) {
             setUserData(ndaData.user);
+            console.log('Documents: User data set:', ndaData.user);
           }
 
           // Check if user is an admin - hardcode specific emails as admin for testing
@@ -56,23 +65,29 @@ function DocumentsContent() {
           // Set admin status directly based on email
           const isAdminUser = adminEmails.includes(email);
           setIsAdmin(isAdminUser);
-          console.log('Is admin:', isAdminUser);
+          console.log('Documents: Is admin:', isAdminUser);
 
           // If user exists but hasn't signed NDA, redirect to login page
           if (!ndaData.hasSignedNDA) {
-            router.push(`/login?email=${encodeURIComponent(email)}`);
+            console.log('Documents: User has not signed NDA, redirecting to login');
+            safeNavigate(router, `/login?email=${encodeURIComponent(email)}`);
             return;
+          } else {
+            console.log('Documents: User has signed NDA, showing documents');
           }
         } else {
+          console.log('Documents: User does not exist, redirecting to email page');
           // User doesn't exist, redirect to email page
-          router.push('/email');
+          safeNavigate(router, '/email', { forceReload: true });
           return;
         }
       } catch (err: Error | unknown) {
         const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+        console.error('Documents: Error checking user status:', errorMessage);
         setError(errorMessage);
       } finally {
         setLoading(false);
+        console.log('Documents: Finished loading');
       }
     };
 
@@ -95,7 +110,7 @@ function DocumentsContent() {
       <div className="flex flex-col items-center justify-center min-h-[50vh] py-12">
         <div className="text-red-500 mb-4 text-center">Error: {error}</div>
         <Button
-          onClick={() => router.push('/')}
+          onClick={() => safeNavigate(router, '/')}
           variant="primary"
         >
           Return to Home
@@ -110,7 +125,7 @@ function DocumentsContent() {
         <h2 className="text-2xl font-bold text-primary mb-4 text-center">Email Required</h2>
         <p className="mb-4 text-center">Please enter your email to access documents.</p>
         <Button
-          onClick={() => router.push('/email')}
+          onClick={() => safeNavigate(router, '/email')}
           variant="primary"
         >
           Go to Email Page

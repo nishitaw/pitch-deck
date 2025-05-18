@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Button from '@/components/Button';
+import { safeNavigate } from '@/utils/navigation';
 
 function LoginContent() {
   const router = useRouter();
@@ -16,7 +17,10 @@ function LoginContent() {
 
   useEffect(() => {
     if (!email) {
-      router.push('/email');
+      console.log('Login: No email provided, redirecting to email page');
+      safeNavigate(router, '/email');
+    } else {
+      console.log('Login: Page loaded with email:', email);
     }
   }, [email, router]);
 
@@ -32,6 +36,8 @@ function LoginContent() {
     setError('');
 
     try {
+      console.log('Login: Attempting to authenticate user:', email);
+
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
@@ -44,15 +50,25 @@ function LoginContent() {
       });
 
       const data = await response.json();
+      console.log('Login: Authentication response received:', { success: data.success, status: response.status });
 
       if (!response.ok) {
         throw new Error(data.error || 'Authentication failed');
       }
 
-      // Redirect to documents page
-      router.push(`/documents?email=${encodeURIComponent(email)}`);
+      console.log('Login: Authentication successful, preparing to navigate to documents page');
+
+      // Set a small delay before navigation to ensure state is updated
+      setTimeout(() => {
+        const documentsUrl = `/documents?email=${encodeURIComponent(email)}`;
+        console.log('Login: Navigating to:', documentsUrl);
+
+        // Use our safe navigation utility
+        safeNavigate(router, documentsUrl, { fallbackDelay: 500 });
+      }, 100);
     } catch (err: Error | unknown) {
       const errorMessage = err instanceof Error ? err.message : 'An error occurred during login';
+      console.error('Login: Authentication error:', errorMessage);
       setError(errorMessage);
       setLoading(false);
     }
@@ -130,7 +146,7 @@ function LoginContent() {
 
               <Button
                 type="button"
-                onClick={() => router.push('/email')}
+                onClick={() => safeNavigate(router, '/email')}
                 variant="gray"
                 className="flex-1"
               >

@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "seed": "node scripts/seed-db.js",
-    "start:all": "node scripts/start.js"
+    "start:all": "node scripts/start.js",
+    "render-start": "node scripts/render-start.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",

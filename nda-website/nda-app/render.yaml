@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: nda-app
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm run render-start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        value: mongodb+srv://dccdev123:ljIAiR09FxaZJrvv@cluster0.je4ebjs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - key: NEXTAUTH_SECRET
+        generateValue: true
+      - key: NEXTAUTH_URL
+        fromService:
+          type: web
+          name: nda-app
+          property: url

@@ -71,8 +71,9 @@ UserSchema.pre('save', async function(next) {
 // Method to compare password for login
 UserSchema.methods.comparePassword = async function(candidatePassword: string): Promise<boolean> {
   try {
-    // @ts-ignore - we know password exists in this context
-    return await bcrypt.compare(candidatePassword, this.password);
+    const user = this as unknown as { password?: string };
+    if (!user.password) return false;
+    return await bcrypt.compare(candidatePassword, user.password);
   } catch (error) {
     return false;
   }

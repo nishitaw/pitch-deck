@@ -23,7 +23,7 @@ const LinkHelper: React.FC<LinkHelperProps> = ({ onSelectLink }) => {
           <path d="M14.32 14.375c.021-.501-.324-.909-.888-.909-.53 0-.967.379-1.041.909H14.32z" />
         </svg>
       ),
-      instructions: 'For Google Drive, make sure your document is set to "Anyone with the link can view".',
+      instructions: 'For Google Drive, make sure your document is set to &quot;Anyone with the link can view&quot;.',
       placeholder: 'https://drive.google.com/file/d/...',
       formatLink: (link: string) => {
         // Extract file ID from Google Drive link
@@ -44,7 +44,7 @@ const LinkHelper: React.FC<LinkHelperProps> = ({ onSelectLink }) => {
           <path d="M6 21.6l6-3.6 6 3.6-6 3.6z" />
         </svg>
       ),
-      instructions: 'For Dropbox, create a shared link and make sure it\'s set to "Anyone with the link can view".',
+      instructions: 'For Dropbox, create a shared link and make sure it&apos;s set to &quot;Anyone with the link can view&quot;.',
       placeholder: 'https://www.dropbox.com/s/...',
       formatLink: (link: string) => {
         // Convert Dropbox link to direct link if needed
@@ -63,7 +63,7 @@ const LinkHelper: React.FC<LinkHelperProps> = ({ onSelectLink }) => {
           <path d="M14.4 14.4c-0.2-0.4-0.4-0.8-0.7-1.2-0.5-0.5-1.2-0.9-1.9-1 0-0.1 0-0.3 0-0.4 0-2.2-1.8-4-4-4-0.4 0-0.7 0.1-1.1 0.2 0.7-1.3 2.1-2.2 3.7-2.2 2.3 0 4.2 1.9 4.2 4.2 0 0.4-0.1 0.7-0.2 1.1 1.9 0.2 3.4 1.6 3.9 3.4h-3.9v-0.1z" />
         </svg>
       ),
-      instructions: 'For OneDrive, create a sharing link with "Anyone with the link can view" permissions.',
+      instructions: 'For OneDrive, create a sharing link with &quot;Anyone with the link can view&quot; permissions.',
       placeholder: 'https://1drv.ms/...',
       formatLink: (link: string) => link
     }

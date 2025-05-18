@@ -70,8 +70,9 @@ export default function NDAPage() {
 
       // Redirect to documents page
       router.push(`/documents?email=${encodeURIComponent(email)}`);
-    } catch (err: any) {
-      setError(err.message || 'An error occurred');
+    } catch (err: Error | unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+      setError(errorMessage);
       setLoading(false);
     }
   };

@@ -30,8 +30,9 @@ const DocumentList: React.FC<DocumentListProps> = ({ email }) => {
         }
 
         setDocuments(data.documents || []);
-      } catch (err: any) {
-        setError(err.message || 'An error occurred');
+      } catch (err: Error | unknown) {
+        const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }

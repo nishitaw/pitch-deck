@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Create NDA record
-    const nda = await NDA.create({
+    await NDA.create({
       userId: user._id,
       content: ndaContent,
       ipAddress: req.headers.get('x-forwarded-for') || 'unknown'

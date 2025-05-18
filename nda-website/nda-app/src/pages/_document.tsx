@@ -4,15 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        {/* Critical CSS loaded first */}
-        <link rel="stylesheet" href="/critical.css" />
-
-        {/* Ensure Next.js CSS is loaded */}
-        <link rel="stylesheet" href="/_next/static/css/app/layout.css" />
-        <link rel="stylesheet" href="/_next/static/css/app/globals.css" />
-
-        {/* Preload fonts */}
-        <link rel="preload" href="/_next/static/media/c9a5bc6a7c948fb0-s.p.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        {/* No manual CSS links - Next.js handles this automatically */}
       </Head>
       <body suppressHydrationWarning={true}>
         <Main />

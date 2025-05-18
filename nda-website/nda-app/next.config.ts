@@ -13,11 +13,12 @@ const nextConfig: NextConfig = {
 
   // Ensure proper port binding for Render
   experimental: {
-    // Ensure proper error handling
-    serverComponentsExternalPackages: ['mongoose'],
     // Enable CSS optimization
     optimizeCss: true,
   },
+
+  // External packages configuration
+  serverExternalPackages: ['mongoose'],
 
   // Add output configuration for standalone mode
   output: 'standalone',
@@ -31,13 +32,13 @@ const nextConfig: NextConfig = {
   webpack: (config) => {
     // Add CSS handling
     const rules = config.module.rules
-      .find((rule) => typeof rule.oneOf === 'object')
-      ?.oneOf.filter((rule) => Array.isArray(rule.use));
+      .find((rule: any) => typeof rule.oneOf === 'object')
+      ?.oneOf.filter((rule: any) => Array.isArray(rule.use));
 
     if (rules) {
-      rules.forEach((rule) => {
+      rules.forEach((rule: any) => {
         const cssLoader = rule.use?.find(
-          (use) => typeof use === 'object' && use.loader?.includes('css-loader')
+          (use: any) => typeof use === 'object' && use.loader?.includes('css-loader')
         );
 
         if (cssLoader && typeof cssLoader === 'object') {

@@ -1,13 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import DocumentList from '@/components/DocumentList';
-import NDAForm from '@/components/NDAForm';
-import LoginForm from '@/components/LoginForm';
 import Button from '@/components/Button';
 
-export default function DocumentsPage() {
+function DocumentsContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const email = searchParams.get('email');
@@ -16,7 +14,6 @@ export default function DocumentsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [userData, setUserData] = useState<{ name: string; email: string } | null>(null);
-  const [showLoginForm, setShowLoginForm] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
@@ -71,8 +68,9 @@ export default function DocumentsPage() {
           router.push('/email');
           return;
         }
-      } catch (err: any) {
-        setError(err.message || 'An error occurred');
+      } catch (err: Error | unknown) {
+        const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }
@@ -140,7 +138,7 @@ export default function DocumentsPage() {
             {isAdmin && (
               <div className="mt-4 text-center">
                 <a
-                  href={`/admin?email=${encodeURIComponent(email)}`}
+                  href={`/admin?email=${encodeURIComponent(email || '')}`}
                   className="inline-block bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-sm transition duration-300"
                 >
                   Go to Admin Dashboard
@@ -150,10 +148,18 @@ export default function DocumentsPage() {
           </div>
 
           <div className="w-full">
-            <DocumentList email={email} />
+            <DocumentList email={email || ''} />
           </div>
         </div>
       )}
     </div>
+  );
+}
+
+export default function DocumentsPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DocumentsContent />
+    </Suspense>
   );
 }

@@ -13,10 +13,24 @@ if (!MONGODB_URI) {
  * in development. This prevents connections growing exponentially
  * during API Route usage.
  */
-let cached = global.mongoose;
+// Define the type for our cached mongoose connection
+interface MongooseCache {
+  conn: typeof mongoose | null;
+  promise: Promise<typeof mongoose> | null;
+}
 
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
+// Add mongoose property to NodeJS.Global interface
+declare global {
+  // eslint-disable-next-line no-var
+  var mongoose: MongooseCache | undefined;
+}
+
+// Initialize cached with a default value if it doesn't exist
+const cached: MongooseCache = global.mongoose || { conn: null, promise: null };
+
+// Set the global mongoose cache
+if (!global.mongoose) {
+  global.mongoose = cached;
 }
 
 async function dbConnect() {

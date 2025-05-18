@@ -38,8 +38,9 @@ export default function EmailPage() {
         // User doesn't exist, redirect to NDA page
         router.push(`/nda?email=${encodeURIComponent(email)}`);
       }
-    } catch (err: any) {
-      setError(err.message || 'An error occurred');
+    } catch (err: Error | unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+      setError(errorMessage);
       setLoading(false);
     }
   };

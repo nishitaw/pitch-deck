@@ -108,8 +108,9 @@ const NDAForm: React.FC<NDAFormProps> = ({ onSuccess }) => {
       }
 
       onSuccess({ name, email });
-    } catch (err: any) {
-      setError(err.message || 'An error occurred');
+    } catch (err: Error | unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -122,7 +123,7 @@ const NDAForm: React.FC<NDAFormProps> = ({ onSuccess }) => {
       {checkingNDA ? (
         <div className="text-center py-4">
           <div className="inline-block h-6 w-6 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent"></div>
-          <p className="mt-2 text-sm">Checking if you've already signed...</p>
+          <p className="mt-2 text-sm">Checking if you&apos;ve already signed...</p>
         </div>
       ) : (
         <>
@@ -159,7 +160,7 @@ const NDAForm: React.FC<NDAFormProps> = ({ onSuccess }) => {
               />
               {email && email.includes('@') && (
                 <p className="text-xs text-gray-500 mt-1">
-                  We'll check if you've already signed the NDA with this email.
+                  We&apos;ll check if you&apos;ve already signed the NDA with this email.
                 </p>
               )}
             </div>

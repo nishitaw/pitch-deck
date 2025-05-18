@@ -49,7 +49,9 @@ const UserSchema: Schema = new Schema({
 
 // Hash password before saving
 UserSchema.pre('save', async function(next) {
-  const user = this as IUser;
+  // Cast to any first to avoid TypeScript errors with mongoose Document types
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const user = this as any;
 
   // Only hash the password if it has been modified (or is new)
   if (!user.isModified('password')) return next();
@@ -74,7 +76,7 @@ UserSchema.methods.comparePassword = async function(candidatePassword: string): 
     const user = this as unknown as { password?: string };
     if (!user.password) return false;
     return await bcrypt.compare(candidatePassword, user.password);
-  } catch (error) {
+  } catch {
     return false;
   }
 };

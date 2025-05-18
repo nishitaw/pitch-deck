@@ -6,17 +6,17 @@ const NDAText: React.FC = () => {
       <h3 className="font-bold mb-2">NON-DISCLOSURE AGREEMENT</h3>
 
       <p className="mb-2">
-        This Non-Disclosure Agreement (the "Agreement") is entered into by and between the company
-        and the individual signing below ("Recipient").
+        This Non-Disclosure Agreement (the &quot;Agreement&quot;) is entered into by and between the company
+        and the individual signing below (&quot;Recipient&quot;).
       </p>
 
       <p className="mb-2">
-        <strong>1. Confidential Information.</strong> "Confidential Information" means any information
+        <strong>1. Confidential Information.</strong> &quot;Confidential Information&quot; means any information
         disclosed by the Company to Recipient, either directly or indirectly, in writing, orally or by
         inspection of tangible objects, including without limitation documents, business plans, source code,
         software, technical data, research, product plans, products, services, customers, markets, software,
         developments, inventions, processes, designs, drawings, engineering, hardware configuration,
-        marketing materials or finances, which is designated as "Confidential," "Proprietary" or some
+        marketing materials or finances, which is designated as &quot;Confidential,&quot; &quot;Proprietary&quot; or some
         similar designation, or information which should reasonably be considered confidential.
       </p>
 

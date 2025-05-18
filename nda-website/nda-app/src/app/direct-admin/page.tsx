@@ -1,17 +1,16 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useState, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Button from '@/components/Button';
 import DocumentList from '@/components/DocumentList';
 import LinkHelper from '@/components/LinkHelper';
 
-export default function DirectAdminDashboard() {
+function DirectAdminContent() {
   const searchParams = useSearchParams();
-  const router = useRouter();
   const email = searchParams.get('email') || 'admin@example.com';
 
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   const [error, setError] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -22,13 +21,13 @@ export default function DirectAdminDashboard() {
     e.preventDefault();
     setError('');
     setSuccessMessage('');
-    
+
     try {
       if (!title || !url) {
         setError('Title and URL are required');
         return;
       }
-      
+
       const response = await fetch('/api/documents', {
         method: 'POST',
         headers: {
@@ -41,25 +40,26 @@ export default function DirectAdminDashboard() {
           email
         }),
       });
-      
+
       const data = await response.json();
-      
+
       if (!response.ok) {
         throw new Error(data.error || 'Failed to create document');
       }
-      
+
       // Clear form
       setTitle('');
       setDescription('');
       setUrl('');
       setSuccessMessage('Document added successfully!');
-      
+
       // Refresh document list
       setTimeout(() => {
         setSuccessMessage('');
       }, 3000);
-    } catch (err: any) {
-      setError(err.message || 'An error occurred');
+    } catch (err: Error | unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+      setError(errorMessage);
     }
   };
 
@@ -74,26 +74,26 @@ export default function DirectAdminDashboard() {
   return (
     <div className="max-w-4xl mx-auto p-4">
       <h1 className="text-3xl font-bold text-primary mb-6 text-center">Admin Dashboard (Direct Access)</h1>
-      
+
       <div className="bg-white p-6 rounded-lg shadow-md mb-8">
         <h2 className="text-xl font-semibold text-primary mb-4">Add Document Link</h2>
         <p className="text-gray-600 mb-4">
           Add links to documents that will be accessible to users who have signed the NDA.
           You can link to files stored on Google Drive, Dropbox, or any other file hosting service.
         </p>
-        
+
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
             {error}
           </div>
         )}
-        
+
         {successMessage && (
           <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
             {successMessage}
           </div>
         )}
-        
+
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="title" className="block text-gray-700 font-medium mb-2">
@@ -109,7 +109,7 @@ export default function DirectAdminDashboard() {
               required
             />
           </div>
-          
+
           <div className="mb-4">
             <label htmlFor="description" className="block text-gray-700 font-medium mb-2">
               Description
@@ -123,7 +123,7 @@ export default function DirectAdminDashboard() {
               rows={3}
             />
           </div>
-          
+
           <div className="mb-6">
             <label htmlFor="url" className="block text-gray-700 font-medium mb-2">
               Document URL *
@@ -140,16 +140,16 @@ export default function DirectAdminDashboard() {
             <p className="text-sm text-gray-500 mt-1">
               Enter the full URL to the document. Make sure the link is accessible to anyone with the link.
             </p>
-            
+
             <LinkHelper onSelectLink={(link) => setUrl(link)} />
           </div>
-          
+
           <Button type="submit" className="w-full">
             Add Document Link
           </Button>
         </form>
       </div>
-      
+
       <div className="mt-8">
         <h2 className="text-xl font-semibold text-primary mb-4">Current Documents</h2>
         <p className="text-gray-600 mb-4">
@@ -158,5 +158,13 @@ export default function DirectAdminDashboard() {
         <DocumentList email={email} />
       </div>
     </div>
+  );
+}
+
+export default function DirectAdminDashboard() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DirectAdminContent />
+    </Suspense>
   );
 }

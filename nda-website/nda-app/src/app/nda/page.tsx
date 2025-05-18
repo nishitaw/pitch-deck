@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import NDAText from '@/components/NDAText';
 import Button from '@/components/Button';
 
-export default function NDAPage() {
+function NDAContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get('email') || '';
@@ -214,5 +214,13 @@ export default function NDAPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function NDAPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <NDAContent />
+    </Suspense>
   );
 }

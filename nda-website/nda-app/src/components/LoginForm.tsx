@@ -43,8 +43,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ email, onSuccess, onCancel }) => 
       }
 
       onSuccess({ name: data.user.name, email: data.user.email });
-    } catch (err: any) {
-      setError(err.message || 'An error occurred during login');
+    } catch (err: Error | unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'An error occurred during login';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -53,7 +54,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ email, onSuccess, onCancel }) => 
   return (
     <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold text-primary mb-4">Login to Access Documents</h2>
-      
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-black mb-1">
@@ -95,7 +96,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ email, onSuccess, onCancel }) => 
           >
             {loading ? 'Logging in...' : 'Login'}
           </button>
-          
+
           <button
             type="button"
             onClick={onCancel}

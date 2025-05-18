@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Button from '@/components/Button';
 import DocumentList from '@/components/DocumentList';
 import LinkHelper from '@/components/LinkHelper';
 
-export default function AdminDashboard() {
+function AdminContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const email = searchParams.get('email');
@@ -19,21 +19,12 @@ export default function AdminDashboard() {
   const [url, setUrl] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  useEffect(() => {
-    if (!email) {
-      router.push('/email');
-      return;
-    }
-
-    checkAdminStatus();
-  }, [email]);
-
-  const checkAdminStatus = async () => {
+  const checkAdminStatus = useCallback(async () => {
     try {
       setLoading(true);
 
       // Check if user exists
-      const userCheckResponse = await fetch(`/api/auth/check-user?email=${encodeURIComponent(email)}`);
+      const userCheckResponse = await fetch(`/api/auth/check-user?email=${encodeURIComponent(email || '')}`);
       const userCheckData = await userCheckResponse.json();
 
       if (!userCheckResponse.ok) {
@@ -53,23 +44,33 @@ export default function AdminDashboard() {
       ];
 
       // Set admin status directly based on email
-      const isAdminUser = adminEmails.includes(email);
+      const isAdminUser = email ? adminEmails.includes(email) : false;
       setIsAdmin(isAdminUser);
       console.log('Is admin:', isAdminUser);
 
       if (!isAdminUser) {
         // Redirect non-admin users to documents page
         console.log('Not an admin, redirecting to documents page');
-        router.push(`/documents?email=${encodeURIComponent(email)}`);
+        router.push(`/documents?email=${encodeURIComponent(email || '')}`);
       } else {
         console.log('User is an admin, staying on admin page');
       }
-    } catch (err: any) {
-      setError(err.message || 'An error occurred');
+    } catch (err: Error | unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
-  };
+  }, [email, router]);
+
+  useEffect(() => {
+    if (!email) {
+      router.push('/email');
+      return;
+    }
+
+    checkAdminStatus();
+  }, [email, checkAdminStatus, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -111,8 +112,9 @@ export default function AdminDashboard() {
       setTimeout(() => {
         setSuccessMessage('');
       }, 3000);
-    } catch (err: any) {
-      setError(err.message || 'An error occurred');
+    } catch (err: Error | unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+      setError(errorMessage);
     }
   };
 
@@ -215,5 +217,13 @@ export default function AdminDashboard() {
         <DocumentList email={email || ''} />
       </div>
     </div>
+  );
+}
+
+export default function AdminDashboard() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AdminContent />
+    </Suspense>
   );
 }

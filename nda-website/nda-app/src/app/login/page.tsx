@@ -84,18 +84,18 @@ function LoginContent() {
       </div>
 
       <div className="flex flex-col md:flex-row gap-8 items-center w-full">
-        <div className="w-full md:w-1/3 flex justify-start">
+        <div className="w-full md:w-2/5 flex justify-start pl-4">
           <Image
             src="/logo.png"
             alt="Company Logo"
-            width={180}
-            height={58}
+            width={240}
+            height={77}
             className="h-auto content-image"
             priority
           />
         </div>
 
-        <div className="w-full md:w-2/3">
+        <div className="w-full md:w-3/5 md:pl-8">
           <h2 className="text-2xl font-bold text-primary mb-4 text-center">Login to Access Documents</h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">

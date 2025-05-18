@@ -71,7 +71,8 @@ async function dbConnect() {
     const connectWithRetry = async (): Promise<typeof mongoose> => {
       try {
         console.log('Attempting to connect to MongoDB...');
-        const mongooseInstance = await mongoose.connect(MONGODB_URI, opts);
+        // Connect to MongoDB and ignore the returned instance
+        await mongoose.connect(MONGODB_URI, opts);
         console.log('MongoDB connected successfully');
         retryCount = 0; // Reset retry count on successful connection
         return mongoose; // Return mongoose, not the instance

@@ -80,21 +80,13 @@ const DecorativeElements: React.FC<DecorativeElementsProps> = ({ count = 4 }) =>
         }}></div>
       ))}
 
-      {/* Gradient circles - smaller on mobile */}
+      {/* Gradient circle - smaller on mobile */}
       <div className="circle-decoration circle-1" style={{
         width: windowWidth < 768 ? '100px' : '200px',
         height: windowWidth < 768 ? '100px' : '200px',
         background: 'radial-gradient(circle, rgba(255, 165, 0, 0.05) 0%, rgba(255, 165, 0, 0) 70%)',
         top: '20%',
         right: '-50px'
-      }}></div>
-
-      <div className="circle-decoration circle-2" style={{
-        width: windowWidth < 768 ? '80px' : '150px',
-        height: windowWidth < 768 ? '80px' : '150px',
-        border: '1px solid rgba(0, 0, 255, 0.05)',
-        bottom: '10%',
-        left: '5%'
       }}></div>
     </div>
   );

@@ -25,6 +25,20 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+/* Logo size constraints */
+.logo-container {
+  max-width: 120px;
+  max-height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.logo-image {
+  max-height: 32px;
+  width: auto;
+  object-fit: contain;
+}
+
 body {
   background-color: var(--background);
   color: var(--foreground);

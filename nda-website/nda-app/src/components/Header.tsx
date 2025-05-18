@@ -4,16 +4,16 @@ import Link from 'next/link';
 
 const Header: React.FC = () => {
   return (
-    <header className="backdrop-blur-md bg-white/80 py-2 sticky top-0 z-50 shadow-sm">
-      <div className="container mx-auto px-4 flex justify-between items-center">
-        <Link href="/" className="flex items-center relative group mr-4">
-          <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+    <header className="backdrop-blur-md bg-white/80 py-1 sticky top-0 z-50 shadow-sm">
+      <div className="container mx-auto px-3 flex justify-between items-center">
+        <Link href="/" className="logo-container relative group mr-4">
+          <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
           <Image
             src="/logo.png"
             alt="Company Logo"
-            width={180}
-            height={60}
-            className="h-10 w-auto relative"
+            width={100}
+            height={32}
+            className="logo-image relative"
             priority
           />
         </Link>

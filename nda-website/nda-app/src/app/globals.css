@@ -27,6 +27,20 @@
   color-scheme: light;
 }
 
+/* Logo size constraints */
+.logo-container {
+  max-width: 120px;
+  max-height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.logo-image {
+  max-height: 32px;
+  width: auto;
+  object-fit: contain;
+}
+
 /* Basic body styles - most are in critical.css */
 body {
   background-color: var(--background);

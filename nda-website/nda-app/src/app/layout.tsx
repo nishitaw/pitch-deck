@@ -20,15 +20,15 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body
-        className="antialiased flex flex-col min-h-screen"
+        className="antialiased flex flex-col min-h-screen overflow-x-hidden"
         suppressHydrationWarning={true}
       >
         {/* Decorative elements */}
-        <DecorativeElements count={6} />
+        <DecorativeElements count={4} />
 
         <Header />
-        <main className="flex-grow flex items-center justify-center container mx-auto px-4 py-8 relative z-10">
-          <div className="w-full">
+        <main className="flex-grow flex items-center justify-center container mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10 w-full max-w-full">
+          <div className="w-full max-w-7xl mx-auto">
             {children}
           </div>
         </main>

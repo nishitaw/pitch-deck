@@ -42,6 +42,16 @@ body {
   background-size: var(--grid-size) var(--grid-size);
   position: relative;
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Apply box-sizing to all elements */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 /* Decorative elements */
@@ -49,26 +59,28 @@ body::before, body::after {
   content: "";
   position: fixed;
   z-index: -1;
+  pointer-events: none;
+  opacity: 0.5;
 }
 
 /* Top right gradient circle */
 body::before {
-  top: -150px;
-  right: -150px;
-  width: 400px;
-  height: 400px;
+  top: -100px;
+  right: -100px;
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 165, 0, 0.2) 0%, rgba(255, 165, 0, 0) 70%);
+  background: radial-gradient(circle, rgba(255, 165, 0, 0.1) 0%, rgba(255, 165, 0, 0) 70%);
 }
 
 /* Bottom left gradient circle */
 body::after {
-  bottom: -150px;
-  left: -150px;
-  width: 500px;
-  height: 500px;
+  bottom: -100px;
+  left: -100px;
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(0, 0, 255, 0.1) 0%, rgba(0, 0, 255, 0) 70%);
+  background: radial-gradient(circle, rgba(0, 0, 255, 0.05) 0%, rgba(0, 0, 255, 0) 70%);
 }
 
 /* Curved line decorations */
@@ -76,25 +88,26 @@ body::after {
   position: fixed;
   z-index: -1;
   pointer-events: none;
+  opacity: 0.3;
 }
 
 .curved-line-1 {
   top: 20%;
   right: 0;
-  width: 150px;
-  height: 300px;
-  border-top-left-radius: 150px;
-  border-bottom-left-radius: 150px;
-  border-left: 2px solid rgba(255, 165, 0, 0.2);
+  width: 100px;
+  height: 200px;
+  border-top-left-radius: 100px;
+  border-bottom-left-radius: 100px;
+  border-left: 1px solid rgba(255, 165, 0, 0.2);
 }
 
 .curved-line-2 {
   bottom: 10%;
   left: 5%;
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
-  border: 2px solid rgba(0, 0, 255, 0.1);
+  border: 1px solid rgba(0, 0, 255, 0.1);
   border-bottom-color: transparent;
   border-left-color: transparent;
   transform: rotate(45deg);
@@ -328,20 +341,21 @@ select:focus {
   border-radius: 50%;
   pointer-events: none;
   z-index: -1;
+  opacity: 0.3;
 }
 
 .circle-1 {
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(255, 165, 0, 0.1) 0%, rgba(255, 165, 0, 0) 70%);
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 165, 0, 0.05) 0%, rgba(255, 165, 0, 0) 70%);
   top: 20%;
-  right: -150px;
+  right: -100px;
 }
 
 .circle-2 {
-  width: 200px;
-  height: 200px;
-  border: 1px solid rgba(0, 0, 255, 0.1);
+  width: 150px;
+  height: 150px;
+  border: 1px solid rgba(0, 0, 255, 0.05);
   bottom: 10%;
   left: 5%;
 }
@@ -355,43 +369,45 @@ select:focus {
   height: 100%;
   pointer-events: none;
   z-index: -1;
+  opacity: 0.5;
+  overflow: hidden;
 }
 
 /* Animated dots */
 .dot {
   position: absolute;
-  width: 6px;
-  height: 6px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
   background-color: var(--primary);
-  opacity: 0.3;
-  animation: float 10s infinite ease-in-out;
+  opacity: 0.2;
+  animation: float 15s infinite ease-in-out;
 }
 
 .dot:nth-child(1) {
-  top: 10%;
-  left: 10%;
+  top: 15%;
+  left: 15%;
   animation-delay: 0s;
 }
 
 .dot:nth-child(2) {
-  top: 20%;
-  right: 20%;
-  animation-delay: 2s;
+  top: 25%;
+  right: 25%;
+  animation-delay: 3s;
   background-color: var(--secondary);
 }
 
 .dot:nth-child(3) {
-  bottom: 15%;
-  left: 30%;
-  animation-delay: 4s;
+  bottom: 20%;
+  left: 35%;
+  animation-delay: 6s;
   background-color: var(--accent);
 }
 
 .dot:nth-child(4) {
-  bottom: 25%;
-  right: 15%;
-  animation-delay: 6s;
+  bottom: 30%;
+  right: 20%;
+  animation-delay: 9s;
 }
 
 @keyframes float {
@@ -399,14 +415,15 @@ select:focus {
     transform: translateY(0) translateX(0);
   }
   25% {
-    transform: translateY(-20px) translateX(10px);
+    transform: translateY(-10px) translateX(5px);
   }
   50% {
-    transform: translateY(0) translateX(20px);
+    transform: translateY(0) translateX(10px);
   }
   75% {
-    transform: translateY(20px) translateX(10px);
+    transform: translateY(10px) translateX(5px);
   }
+}
 
 /* Shine animation for buttons */
 @keyframes shine {
@@ -421,5 +438,4 @@ select:focus {
 .group:hover .group-hover\:animate-shine,
 button:hover .animate-shine {
   animation: shine 1.5s ease-in-out;
-}
 }

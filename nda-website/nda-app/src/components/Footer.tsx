@@ -9,8 +9,6 @@ const Footer: React.FC = () => {
       <div className="absolute inset-0 z-0">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
         <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
-        <div className="absolute top-1/2 right-1/4 w-32 h-32 rounded-full border border-white/10 opacity-50"></div>
-        <div className="absolute bottom-1/4 left-1/3 w-24 h-24 rounded-full border border-white/5 opacity-30"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">

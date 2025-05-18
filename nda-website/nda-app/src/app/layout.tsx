@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import DecorativeElements from '@/components/DecorativeElements';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: "NDA Document Portal",
@@ -18,13 +19,15 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/critical.css" precedence="high" />
+        <meta name="color-scheme" content="light" />
       </head>
       <body
         className="antialiased flex flex-col min-h-screen overflow-x-hidden"
         suppressHydrationWarning={true}
       >
-        {/* Decorative elements */}
-        <DecorativeElements count={4} />
+        {/* Decorative elements disabled for stability */}
+        {/* <DecorativeElements count={4} /> */}
 
         <Header />
         <main className="flex-grow flex items-center justify-center container mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10 w-full max-w-full">
@@ -33,6 +36,15 @@ export default function RootLayout({
           </div>
         </main>
         <Footer />
+
+        {/* Add script to ensure styles are applied */}
+        <Script id="apply-styles" strategy="afterInteractive">
+          {`
+            document.body.style.display = 'flex';
+            document.body.style.flexDirection = 'column';
+            document.body.style.minHeight = '100vh';
+          `}
+        </Script>
       </body>
     </html>
   );

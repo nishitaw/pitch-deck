@@ -9,14 +9,26 @@
   --secondary-light: #FFB733;
   --secondary-dark: #E69500;
   --accent: #00C8FF;
-  --grid-color: rgba(0, 0, 255, 0.05);
+  --grid-color: rgba(0, 0, 255, 0.02);
   --grid-size: 30px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background-image:
     linear-gradient(var(--grid-color) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
@@ -25,6 +37,9 @@ body {
   overflow-x: hidden;
   margin: 0;
   padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Basic layout */
@@ -66,29 +81,122 @@ body {
   padding-bottom: 1rem;
 }
 
+.w-full {
+  width: 100%;
+}
+
+.max-w-full {
+  max-width: 100%;
+}
+
+.max-w-7xl {
+  max-width: 80rem;
+}
+
+.relative {
+  position: relative;
+}
+
+.z-10 {
+  z-index: 10;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+main {
+  flex: 1;
+  width: 100%;
+  padding: 1rem;
+}
+
+/* Hide decorative elements by default */
+.decorative-elements,
+.curved-line,
+.circle-decoration,
+.dot {
+  display: none !important;
+}
+
 /* Header styles */
 header {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 50;
+  width: 100%;
+  padding: 1rem;
+}
+
+/* Footer styles */
+footer {
+  background-color: rgba(0, 0, 255, 0.9);
+  color: white;
+  width: 100%;
+  padding: 1rem;
+  margin-top: auto;
 }
 
 /* Button styles */
-button, 
-.button {
+button,
+.button,
+.bg-primary,
+.bg-secondary {
   background-color: var(--primary);
-  color: white;
+  color: white !important;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
   cursor: pointer;
   font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 button:hover,
-.button:hover {
+.button:hover,
+.bg-primary:hover,
+.bg-secondary:hover {
   background-color: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.bg-secondary {
+  background-color: var(--secondary);
+}
+
+.bg-secondary:hover {
+  background-color: var(--secondary-dark);
+}
+
+/* Card styles */
+.card,
+.bg-white,
+.shadow-md {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Form styles */
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.375rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
 }

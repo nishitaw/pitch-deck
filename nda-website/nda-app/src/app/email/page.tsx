@@ -54,7 +54,18 @@ export default function EmailPage() {
         </p>
       </div>
 
-      <div className="flex flex-col md:flex-row-reverse gap-8 items-center justify-center w-full">
+      <div className="flex flex-col md:flex-row gap-8 items-center justify-center w-full">
+        <div className="w-full md:w-1/2 flex justify-center">
+          <Image
+            src="/logo.png"
+            alt="Company Logo"
+            width={200}
+            height={64}
+            className="w-full max-w-xs h-auto content-image"
+            priority
+          />
+        </div>
+
         <div className="w-full md:w-1/2">
           <h2 className="text-2xl font-bold text-primary mb-4 text-center">Enter Your Email</h2>
 
@@ -88,17 +99,6 @@ export default function EmailPage() {
               {loading ? 'Checking...' : 'Continue'}
             </Button>
           </form>
-        </div>
-
-        <div className="w-full md:w-1/2 flex justify-center">
-          <Image
-            src="/logo.png"
-            alt="Company Logo"
-            width={200}
-            height={64}
-            className="w-full max-w-xs h-auto content-image"
-            priority
-          />
         </div>
       </div>
     </div>

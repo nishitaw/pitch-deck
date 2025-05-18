@@ -11,8 +11,8 @@ const Header: React.FC = () => {
           <Image
             src="/logo.png"
             alt="Company Logo"
-            width={150}
-            height={48}
+            width={120}
+            height={38}
             className="relative h-auto"
             priority
           />

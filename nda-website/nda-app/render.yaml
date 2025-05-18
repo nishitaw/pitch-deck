@@ -3,12 +3,12 @@ services:
     name: nda-app
     env: node
     plan: free
-    buildCommand: npm install && npm run build
+    buildCommand: npm install && NODE_OPTIONS="--max-old-space-size=1024" npm run build
     startCommand: npm run render-start
     # Add health check endpoint
     healthCheckPath: /api/health
     # Increase startup timeout
-    initialDeployHook: sleep 10
+    initialDeployHook: sleep 20
     # Add auto-scaling configuration
     autoscaling:
       min: 1

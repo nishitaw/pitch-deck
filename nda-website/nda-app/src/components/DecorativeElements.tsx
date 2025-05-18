@@ -7,34 +7,34 @@ interface DecorativeElementsProps {
 }
 
 const DecorativeElements: React.FC<DecorativeElementsProps> = ({ count = 4 }) => {
+  // All hooks must be called at the top level
   const [mounted, setMounted] = useState(false);
+  const [windowWidth, setWindowWidth] = useState<number>(0);
 
   useEffect(() => {
     setMounted(true);
+
+    // Only run this in the browser
+    if (typeof window !== 'undefined') {
+      // Set initial width
+      setWindowWidth(window.innerWidth);
+
+      // Add resize listener
+      const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+      };
+
+      window.addEventListener('resize', handleResize);
+
+      // Cleanup
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }
   }, []);
 
   // Only render on client side to avoid hydration issues
   if (!mounted) return null;
-
-  // State to track window width
-  const [windowWidth, setWindowWidth] = useState<number>(0);
-
-  useEffect(() => {
-    // Set initial width
-    setWindowWidth(window.innerWidth);
-
-    // Add resize listener
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   // Adjust count based on screen size
   const adjustedCount = windowWidth < 768 ? Math.min(count, 2) : count;

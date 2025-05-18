@@ -1,14 +1,14 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import mongoose from 'mongoose';
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     console.log('Testing MongoDB connection...');
-    
+
     // Try to connect to MongoDB
     await dbConnect();
-    
+
     // Check connection state
     const connectionState = mongoose.connection.readyState;
     const stateMap = {
@@ -18,11 +18,11 @@ export async function GET(req: NextRequest) {
       3: 'disconnecting',
       99: 'uninitialized'
     };
-    
+
     const connectionStatus = stateMap[connectionState as keyof typeof stateMap] || 'unknown';
-    
+
     console.log(`MongoDB connection state: ${connectionStatus} (${connectionState})`);
-    
+
     // Return connection status
     return NextResponse.json({
       success: true,
@@ -34,7 +34,7 @@ export async function GET(req: NextRequest) {
     });
   } catch (error) {
     console.error('Error testing MongoDB connection:', error);
-    
+
     // Return error details
     return NextResponse.json({
       success: false,

@@ -68,13 +68,13 @@ async function dbConnect() {
       retryReads: true,
     };
 
-    const connectWithRetry = async () => {
+    const connectWithRetry = async (): Promise<typeof mongoose> => {
       try {
         console.log('Attempting to connect to MongoDB...');
         const mongooseInstance = await mongoose.connect(MONGODB_URI, opts);
         console.log('MongoDB connected successfully');
         retryCount = 0; // Reset retry count on successful connection
-        return mongooseInstance;
+        return mongoose; // Return mongoose, not the instance
       } catch (err) {
         console.error('MongoDB connection error:', err);
 
@@ -83,8 +83,13 @@ async function dbConnect() {
           const retryDelay = 5000 * retryCount; // Exponential backoff
           console.log(`Retrying connection in ${retryDelay}ms... (Attempt ${retryCount}/${MAX_RETRIES})`);
 
-          return new Promise((resolve) => {
-            setTimeout(() => resolve(connectWithRetry()), retryDelay);
+          return new Promise<typeof mongoose>((resolve) => {
+            setTimeout(() => {
+              connectWithRetry().then(resolve).catch((error) => {
+                console.error('Error in retry:', error);
+                throw error;
+              });
+            }, retryDelay);
           });
         }
 

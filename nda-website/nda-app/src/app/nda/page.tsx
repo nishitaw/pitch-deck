@@ -86,19 +86,19 @@ function NDAContent() {
         </p>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-8 items-center justify-center w-full">
-        <div className="w-full md:w-1/2 flex justify-center">
+      <div className="flex flex-col md:flex-row gap-8 items-center w-full">
+        <div className="w-full md:w-1/3 flex justify-start">
           <Image
             src="/logo.png"
             alt="Company Logo"
-            width={200}
-            height={64}
-            className="w-full max-w-xs h-auto content-image"
+            width={180}
+            height={58}
+            className="h-auto content-image"
             priority
           />
         </div>
 
-        <div className="w-full md:w-1/2 flex justify-center">
+        <div className="w-full md:w-2/3 flex justify-center">
           <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-2xl font-bold text-primary mb-4 text-center">Sign NDA to Access Documents</h2>
 

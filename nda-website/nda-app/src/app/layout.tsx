@@ -29,8 +29,8 @@ export default function RootLayout({
         <DecorativeElements count={6} />
 
         <Header />
-        <main className="flex-grow flex items-center justify-center container mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10 w-full max-w-full">
-          <div className="w-full max-w-7xl mx-auto">
+        <main className="flex-grow flex items-center justify-center container mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10 w-full">
+          <div className="w-full max-w-7xl mx-auto flex items-center justify-center">
             {children}
           </div>
         </main>

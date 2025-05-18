@@ -2,99 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base variables - these are duplicated in critical.css */
-:root {
-  --background: #ffffff;
-  --foreground: #000000;
-  --primary: #0000FF;
-  --primary-light: #3333FF;
-  --primary-dark: #0000CC;
-  --secondary: #FFA500;
-  --secondary-light: #FFB733;
-  --secondary-dark: #E69500;
-  --accent: #00C8FF;
-  --grid-color: rgba(0, 0, 255, 0.02);
-  --grid-size: 30px;
-}
+/*
+ * This file contains non-critical CSS that enhances the visual appearance
+ * Critical CSS is in critical.css and loaded separately
+ */
 
-/* Basic reset - also in critical.css */
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-/* Force light mode */
-:root {
-  color-scheme: light;
-}
-
-/* Logo size constraints */
-.logo-container {
-  max-width: 120px;
-  max-height: 32px;
-  display: flex;
-  align-items: center;
-}
-
-.logo-image {
-  max-height: 32px;
-  width: auto;
-  object-fit: contain;
-}
-
-/* Content image constraints */
-.content-image {
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
-  max-height: 200px;
-}
-
-/* Responsive image sizing */
-.max-w-xs {
-  max-width: 20rem; /* 320px */
-}
-
-/* Media queries for responsive images */
-@media (max-width: 768px) {
-  .content-image {
-    max-height: 150px;
-  }
-
-  .max-w-xs {
-    max-width: 16rem; /* 256px */
-  }
-}
-
-@media (max-width: 480px) {
-  .content-image {
-    max-height: 120px;
-  }
-
-  .max-w-xs {
-    max-width: 12rem; /* 192px */
-  }
-}
-
-/* Basic body styles - most are in critical.css */
-body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-image:
-    linear-gradient(var(--grid-color) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-  background-size: var(--grid-size) var(--grid-size);
-  position: relative;
-  overflow-x: hidden;
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Decorative elements */
+/* ===== DECORATIVE ELEMENTS ===== */
+/* Decorative body elements */
 body::before, body::after {
   content: "";
   position: fixed;
@@ -122,16 +36,52 @@ body::after {
   background: radial-gradient(circle, rgba(0, 0, 255, 0.05) 0%, rgba(0, 0, 255, 0) 70%);
 }
 
-/* Futuristic button styles */
+/* Decorative elements container */
+.decorative-elements {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* Animated dots */
+.dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  opacity: 0.3;
+  animation: float 10s infinite ease-in-out;
+}
+
+/* Curved line elements */
+.curved-line {
+  position: fixed;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.circle-decoration {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ===== BUTTONS ===== */
+/* Base button styles */
 button,
 a.button,
 .bg-primary,
 .bg-secondary {
-  color: #FFFFFF !important;
+  color: #FFFFFF;
   text-decoration: none;
   font-weight: bold;
-  opacity: 1 !important;
-  visibility: visible !important;
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
@@ -210,24 +160,17 @@ button.primary:hover::after {
   animation: shine 2s ease-in-out;
 }
 
-/* Force button text to be visible */
-button {
-  color: #FFFFFF !important;
-}
-
-/* Ensure button text is visible at all times, not just on hover */
+/* Ensure button text is visible */
 button span,
 button div,
 button p,
 button * {
-  opacity: 1 !important;
-  visibility: visible !important;
-  color: inherit !important;
   position: relative;
   z-index: 2;
 }
 
-/* Futuristic card styles */
+/* ===== CARDS ===== */
+/* Card styles */
 .card,
 .bg-white,
 .shadow-md {
@@ -254,13 +197,6 @@ button * {
   transform: translateY(-2px);
 }
 
-/* Form styles */
-form {
-  background: transparent;
-  border: none;
-  box-shadow: none;
-}
-
 /* Card with accent border */
 .card-accent {
   border-top: 3px solid var(--primary);
@@ -270,6 +206,14 @@ form {
 .card-accent-secondary {
   border-top: 3px solid var(--secondary);
   border-radius: 0 0 8px 8px;
+}
+
+/* ===== FORMS ===== */
+/* Form container */
+form {
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 /* Input field styles */
@@ -299,6 +243,7 @@ select:focus {
   outline: none;
 }
 
+/* ===== SPECIAL EFFECTS ===== */
 /* Animated gradient text */
 .gradient-text {
   background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
@@ -310,19 +255,7 @@ select:focus {
   font-weight: 600;
 }
 
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% center;
-  }
-  50% {
-    background-position: 100% center;
-  }
-  100% {
-    background-position: 0% center;
-  }
-}
-
-/* Futuristic grid overlay for sections */
+/* Grid overlay for sections */
 .grid-section {
   position: relative;
 }
@@ -342,55 +275,49 @@ select:focus {
   pointer-events: none;
 }
 
-/* Add these decorative elements to the layout */
-.decorative-elements {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: -1;
-  overflow: hidden;
-}
-
-/* Animated dots */
-.dot {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: var(--primary);
-  opacity: 0.3;
-  animation: float 10s infinite ease-in-out;
-}
-
+/* ===== ANIMATIONS ===== */
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0) translateX(0);
-  }
-  25% {
-    transform: translateY(-10px) translateX(5px);
-  }
-  50% {
-    transform: translateY(0) translateX(10px);
-  }
-  75% {
-    transform: translateY(10px) translateX(5px);
-  }
+  0%, 100% { transform: translateY(0) translateX(0); }
+  25% { transform: translateY(-10px) translateX(5px); }
+  50% { transform: translateY(0) translateX(10px); }
+  75% { transform: translateY(10px) translateX(5px); }
 }
 
-/* Shine animation for buttons */
 @keyframes shine {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
+@keyframes gradient-shift {
+  0% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+  100% { background-position: 0% center; }
+}
+
+/* Animation classes */
 .group:hover .group-hover\:animate-shine,
 button:hover .animate-shine {
   animation: shine 1.5s ease-in-out;
+}
+
+/* ===== RESPONSIVE ADJUSTMENTS ===== */
+/* Additional responsive adjustments */
+@media (max-width: 768px) {
+  .card, .shadow-md {
+    padding: 1rem;
+  }
+
+  button, a.button {
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .decorative-elements {
+    display: none; /* Hide decorative elements on very small screens for performance */
+  }
+
+  body::before, body::after {
+    opacity: 0.5; /* Reduce opacity of background elements */
+  }
 }

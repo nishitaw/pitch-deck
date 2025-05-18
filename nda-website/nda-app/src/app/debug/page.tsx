@@ -96,7 +96,9 @@ export default function DebugPage() {
         <h2 className="text-xl font-semibold mb-2">Next.js Router Info</h2>
         <div className="bg-gray-100 p-4 rounded">
           <p><strong>Pathname:</strong> {pathname}</p>
-          <p><strong>Search Params:</strong> {JSON.stringify(Object.fromEntries([...searchParams.entries()]))}</p>
+          <p><strong>Search Params:</strong> {JSON.stringify(
+            searchParams ? Object.fromEntries([...searchParams.entries()]) : {}
+          )}</p>
         </div>
       </div>
 

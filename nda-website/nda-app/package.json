@@ -9,28 +9,30 @@
     "lint": "next lint",
     "seed": "node scripts/seed-db.js",
     "start:all": "node scripts/start.js",
-    "render-start": "node scripts/render-start.js"
+    "render-start": "node scripts/render-start.js",
+    "postinstall": "npm install autoprefixer@10.4.16 critters@0.0.23"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.16",
     "bcryptjs": "^3.0.2",
+    "critters": "^0.0.23",
     "dotenv": "^16.5.0",
     "mongodb": "^6.16.0",
     "mongoose": "^8.15.0",
     "next": "15.3.2",
     "next-auth": "^4.24.11",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^4",
+    "@tailwindcss/postcss": "^4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "critters": "^0.0.23",
     "eslint": "^9",
     "eslint-config-next": "15.3.2",
-    "tailwindcss": "^4",
     "typescript": "^5"
   }
 }

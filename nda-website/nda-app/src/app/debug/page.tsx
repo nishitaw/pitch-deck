@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import dynamic from 'next/dynamic';
 
 // Define a proper interface for browser information
 interface BrowserInfo {
@@ -21,7 +22,7 @@ interface BrowserInfo {
   protocol: string;
 }
 
-export default function DebugPage() {
+function DebugPageContent() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -29,26 +30,34 @@ export default function DebugPage() {
   const [navigationTest, setNavigationTest] = useState<string>('Not tested');
 
   useEffect(() => {
-    // Collect browser information
-    setBrowserInfo({
-      userAgent: window.navigator.userAgent,
-      platform: window.navigator.platform,
-      vendor: window.navigator.vendor,
-      language: window.navigator.language,
-      cookiesEnabled: window.navigator.cookieEnabled,
-      windowDimensions: `${window.innerWidth}x${window.innerHeight}`,
-      screenDimensions: `${window.screen.width}x${window.screen.height}`,
-      url: window.location.href,
-      pathname: window.location.pathname,
-      search: window.location.search,
-      hash: window.location.hash,
-      host: window.location.host,
-      origin: window.location.origin,
-      protocol: window.location.protocol,
-    });
+    // Only run on the client side
+    if (typeof window !== 'undefined') {
+      // Collect browser information
+      setBrowserInfo({
+        userAgent: window.navigator.userAgent,
+        platform: window.navigator.platform,
+        vendor: window.navigator.vendor,
+        language: window.navigator.language,
+        cookiesEnabled: window.navigator.cookieEnabled,
+        windowDimensions: `${window.innerWidth}x${window.innerHeight}`,
+        screenDimensions: `${window.screen.width}x${window.screen.height}`,
+        url: window.location.href,
+        pathname: window.location.pathname,
+        search: window.location.search,
+        hash: window.location.hash,
+        host: window.location.host,
+        origin: window.location.origin,
+        protocol: window.location.protocol,
+      });
+    }
   }, []);
 
   const testNavigation = () => {
+    // Only run on the client side
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     try {
       setNavigationTest('Testing...');
       const testUrl = `/debug?test=true&time=${Date.now()}`;
@@ -164,4 +173,13 @@ export default function DebugPage() {
       </div>
     </div>
   );
+}
+
+// Use dynamic import with SSR disabled to prevent prerendering issues
+const DebugPage = dynamic(() => Promise.resolve(DebugPageContent), {
+  ssr: false,
+});
+
+export default function DebugPageWrapper() {
+  return <DebugPage />;
 }

@@ -78,29 +78,31 @@ function NDAContent() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto flex flex-col items-center justify-center">
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-primary mb-2">Confidential Document Portal</h1>
-        <p className="text-black mb-6">
-          Please sign the Non-Disclosure Agreement to access our confidential documents.
-        </p>
-      </div>
-
-      <div className="flex flex-col md:flex-row gap-8 items-center w-full">
-        <div className="w-full md:w-2/5 flex justify-start pl-4">
-          <Image
-            src="/logo.png"
-            alt="Company Logo"
-            width={240}
-            height={77}
-            className="h-auto content-image"
-            priority
-          />
+    <div className="w-full mx-auto">
+      <div className="flex flex-col md:flex-row w-full">
+        {/* Left side - Logo */}
+        <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-8 md:p-12 md:fixed md:left-0 md:top-0 md:bottom-0 md:h-screen bg-white">
+          <div className="flex justify-center items-center h-full">
+            <Image
+              src="/logo.png"
+              alt="Company Logo"
+              width={320}
+              height={103}
+              className="h-auto"
+              priority
+            />
+          </div>
         </div>
 
-        <div className="w-full md:w-3/5 md:pl-8 flex justify-center">
-          <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold text-primary mb-4 text-center">Sign NDA to Access Documents</h2>
+        {/* Right side - Form */}
+        <div className="w-full md:w-1/2 md:ml-auto p-8 flex flex-col items-center justify-center">
+          <div className="max-w-md w-full">
+            <h1 className="text-3xl font-bold text-primary mb-2 text-center">Confidential Document Portal</h1>
+            <p className="text-black mb-6 text-center">
+              Please sign the Non-Disclosure Agreement to access our confidential documents.
+            </p>
+            <div className="w-full bg-white p-6 rounded-lg shadow-md">
+              <h2 className="text-2xl font-bold text-primary mb-4 text-center">Sign NDA to Access Documents</h2>
 
             <div id="nda-text">
               <NDAText />
@@ -210,6 +212,7 @@ function NDAContent() {
                 </Button>
               </div>
             </form>
+            </div>
           </div>
         </div>
       </div>

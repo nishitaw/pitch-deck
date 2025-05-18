@@ -13,6 +13,12 @@ services:
     autoscaling:
       min: 1
       max: 1
+    # Ensure static assets are properly served
+    staticPublishPath: ./public
+    routes:
+      - type: rewrite
+        source: /logo.png
+        destination: /logo.png
     envVars:
       - key: NODE_ENV
         value: production

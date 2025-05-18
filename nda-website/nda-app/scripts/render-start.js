@@ -38,6 +38,25 @@ if (nextDirExists) {
   console.log('.next directory contents:', fs.readdirSync('.next').join(', '));
 }
 
+// Check for logo file in various locations
+console.log('=== LOGO FILE CHECKS ===');
+const logoLocations = [
+  './public/logo.png',
+  './.next/static/logo.png',
+  './.next/logo.png',
+  './logo.png'
+];
+
+logoLocations.forEach(location => {
+  const exists = fs.existsSync(location);
+  console.log(`Logo at ${location}: ${exists ? 'EXISTS' : 'MISSING'}`);
+  if (exists) {
+    const stats = fs.statSync(location);
+    console.log(`  - Size: ${stats.size} bytes`);
+    console.log(`  - Last modified: ${stats.mtime}`);
+  }
+});
+
 console.log(`Starting server on port ${PORT}`);
 
 // Add a small delay to ensure environment is fully set up

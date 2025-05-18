@@ -23,10 +23,16 @@ const nextConfig: NextConfig = {
   // Add output configuration for standalone mode
   output: 'standalone',
 
-  // Disable image optimization during build to reduce memory usage
+  // Configure image handling for production
   images: {
-    unoptimized: true,
+    unoptimized: true, // This ensures images are served as-is
   },
+
+  // Ensure static assets are properly handled
+  distDir: process.env.NODE_ENV === 'production' ? '.next' : '.next',
+
+  // Disable asset prefix to ensure correct paths
+  assetPrefix: undefined,
 
   // Ensure CSS is properly loaded
   webpack: (config) => {

@@ -4,7 +4,13 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        {/* No manual CSS links - Next.js handles this automatically */}
+        {/* Preload the logo image */}
+        <link
+          rel="preload"
+          href="/logo.png"
+          as="image"
+          type="image/png"
+        />
       </Head>
       <body suppressHydrationWarning={true}>
         <Main />

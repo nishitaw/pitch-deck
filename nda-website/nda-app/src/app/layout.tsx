@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "../styles/critical.css";
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import DecorativeElements from '@/components/DecorativeElements';
-import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: "NDA Document Portal",
@@ -19,7 +19,6 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="/critical.css" precedence="high" />
         <meta name="color-scheme" content="light" />
       </head>
       <body

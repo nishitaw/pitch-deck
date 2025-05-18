@@ -3,11 +3,29 @@
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
+// Define a proper interface for browser information
+interface BrowserInfo {
+  userAgent: string;
+  platform: string;
+  vendor: string;
+  language: string;
+  cookiesEnabled: boolean;
+  windowDimensions: string;
+  screenDimensions: string;
+  url: string;
+  pathname: string;
+  search: string;
+  hash: string;
+  host: string;
+  origin: string;
+  protocol: string;
+}
+
 export default function DebugPage() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [browserInfo, setBrowserInfo] = useState<any>({});
+  const [browserInfo, setBrowserInfo] = useState<BrowserInfo | Record<string, never>>({});
   const [navigationTest, setNavigationTest] = useState<string>('Not tested');
 
   useEffect(() => {
@@ -34,10 +52,10 @@ export default function DebugPage() {
     try {
       setNavigationTest('Testing...');
       const testUrl = `/debug?test=true&time=${Date.now()}`;
-      
+
       // Test Next.js router
       router.push(testUrl);
-      
+
       // Check if navigation worked after a delay
       setTimeout(() => {
         if (window.location.search.includes('test=true')) {
@@ -56,11 +74,11 @@ export default function DebugPage() {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6">Debug Information</h1>
-      
+
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Navigation Test</h2>
         <div className="flex space-x-4 mb-4">
-          <button 
+          <button
             onClick={testNavigation}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
@@ -73,7 +91,7 @@ export default function DebugPage() {
           </div>
         </div>
       </div>
-      
+
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Next.js Router Info</h2>
         <div className="bg-gray-100 p-4 rounded">
@@ -81,35 +99,35 @@ export default function DebugPage() {
           <p><strong>Search Params:</strong> {JSON.stringify(Object.fromEntries([...searchParams.entries()]))}</p>
         </div>
       </div>
-      
+
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Browser Information</h2>
         <pre className="bg-gray-100 p-4 rounded overflow-auto max-h-96">
           {JSON.stringify(browserInfo, null, 2)}
         </pre>
       </div>
-      
+
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Manual Navigation Links</h2>
         <div className="space-y-2">
           <div>
-            <a 
-              href="/email" 
+            <a
+              href="/email"
               className="text-blue-600 hover:underline"
             >
               Go to Email Page (using a href)
             </a>
           </div>
           <div>
-            <a 
-              href="/documents?email=test@example.com" 
+            <a
+              href="/documents?email=test@example.com"
               className="text-blue-600 hover:underline"
             >
               Go to Documents Page (using a href)
             </a>
           </div>
           <div>
-            <button 
+            <button
               onClick={() => router.push('/email')}
               className="text-blue-600 hover:underline"
             >
@@ -117,7 +135,7 @@ export default function DebugPage() {
             </button>
           </div>
           <div>
-            <button 
+            <button
               onClick={() => router.push('/documents?email=test@example.com')}
               className="text-blue-600 hover:underline"
             >
@@ -125,7 +143,7 @@ export default function DebugPage() {
             </button>
           </div>
           <div>
-            <button 
+            <button
               onClick={() => window.location.href = '/email'}
               className="text-blue-600 hover:underline"
             >
@@ -133,7 +151,7 @@ export default function DebugPage() {
             </button>
           </div>
           <div>
-            <button 
+            <button
               onClick={() => window.location.href = '/documents?email=test@example.com'}
               className="text-blue-600 hover:underline"
             >

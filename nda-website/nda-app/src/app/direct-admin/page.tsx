@@ -8,7 +8,7 @@ import LinkHelper from '@/components/LinkHelper';
 
 function DirectAdminContent() {
   const searchParams = useSearchParams();
-  const email = searchParams.get('email') || 'admin@example.com';
+  const email = searchParams?.get('email') || 'admin@example.com';
 
   const [loading] = useState(false);
   const [error, setError] = useState('');
